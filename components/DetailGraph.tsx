@@ -2,7 +2,9 @@ import { FunctionComponent, useState, useEffect } from "react";
 import { Label, LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 
-export default function OverallGraph({graphData, topDormNames}: any) {
+export default function OverallGraph({graphData, dorm}: any) {
+
+  console.log(graphData, "graphData")
 
     const CustomizedAxisTick: FunctionComponent<any> = (props: any) => {
         const { x, y, payload } = props;
@@ -16,6 +18,14 @@ export default function OverallGraph({graphData, topDormNames}: any) {
         );
       };
 
+        // https://stackoverflow.com/a/196991
+      function toTitleCase(str: string) {
+        if (!str) return "";
+        return str.replace(/([^\W_]+[^\s-]*) */g, function (txt: string) {
+          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
+      }
+
     return (
         <div>
             <LineChart width={500} height={300} data={graphData}
@@ -27,7 +37,7 @@ export default function OverallGraph({graphData, topDormNames}: any) {
                     <Label dx={-30} value="kWh/person" angle={-90}  />
                 </YAxis>
                 <Tooltip/>
-                <Line name={topDormNames[0]} type="monotone" dataKey="top1" stroke="#232D4B" />
+                <Line name={toTitleCase(dorm)} type="monotone" dataKey="value" stroke="#232D4B" />
             </LineChart>
         </div>
     )
