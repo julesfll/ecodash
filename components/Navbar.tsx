@@ -1,11 +1,12 @@
 import React from "react";
 import Link from "next/link";
+import Subscribe from './Subscribe';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt } from "@fortawesome/free-solid-svg-icons";
 
 export default function Navbar() {
   return (
-    <nav className="bg-[#232D4B]">
+    <nav className="bg-[#232D4B] sticky top-0">
       <div className="flex m-auto w-[750px] items-center text-white py-2.5 gap-10  ">
         <h1 className="text-2xl">
           <FontAwesomeIcon className="text-yellow-400" icon={faBolt} />
@@ -22,7 +23,7 @@ export default function Navbar() {
             Previous Years
           </h1>
         </Link>
-        <button className="p-1.5 rounded-md bg-[#E57200]">Subscribe</button>
+        <Subscribe />
       </div>
     </nav>
   );

@@ -1,3 +1,6 @@
+//later need to get actual capacities to calcualte
+// kwh/person
+
 export const data = [
   {
     id: "1e791982-5342-46c6-a0f5-ba76da74fcff",
