@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import { data } from "../../../data";
+import { data, capacities } from "../../../data";
 
 export default function handler(req: NextApiRequest, res: any) {
   const { date } = req.query; //filter by this string date
@@ -15,7 +15,7 @@ export default function handler(req: NextApiRequest, res: any) {
     return dateNoHours.toString() === filterDate.toString();
   });
   datesFiltered.sort((a, b) => {
-    return a.value - b.value;
+    return a.value / capacities[a.name] - b.value / capacities[b.name];
   });
   res.status(200).json({ data: datesFiltered });
 }

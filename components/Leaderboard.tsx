@@ -6,7 +6,7 @@ import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import { faMedal } from "@fortawesome/free-solid-svg-icons";
 import Building from "../interfaces/Building";
 import OverallGraph from "./OverallGraph";
-import { capacities } from '../data';
+import { capacities } from "../data";
 
 function LeaderboardListItem({
   name,
@@ -102,9 +102,11 @@ function FeaturedCard({
 
 export default function Leaderboard({
   data,
+  allData,
   graphUpperLimit,
 }: {
   data: Building[];
+  allData: Building[];
   graphUpperLimit: number;
 }) {
   return (
@@ -123,6 +125,8 @@ export default function Leaderboard({
           );
         })}
       </div>
+      <OverallGraph graphUpperLimit={graphUpperLimit} />
+
       <div>
         {data.slice(3).map((d, i) => {
           return (
@@ -137,8 +141,6 @@ export default function Leaderboard({
           );
         })}
       </div>
-
-      <OverallGraph graphUpperLimit={graphUpperLimit} />
     </div>
   );
 }

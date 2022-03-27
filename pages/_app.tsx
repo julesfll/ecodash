@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Navbar />
-      <div className="w-[750px] m-auto py-10">
+      <div className="w-[750px] m-auto py-6">
         <Component {...pageProps} />
       </div>
     </>
