@@ -53,6 +53,7 @@ export default function Dashboard() {
     <div className="flex flex-col gap-5">
       <h1 className="text-2xl">History Slider</h1>
       <input
+        className="accent-[#E57200]"
         type="range"
         min="0"
         max={allDates.length - 1}
