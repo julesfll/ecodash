@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { Label, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { FunctionComponent } from "react";
+import { Label, LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 const Chart: NextPage = () => {
     // placeholder data
@@ -43,19 +44,30 @@ const Chart: NextPage = () => {
         },
       ]
 
+      const CustomizedAxisTick: FunctionComponent<any> = (props: any) => {
+        const { x, y, payload } = props;
+      
+        return (
+          <g transform={`translate(${x},${y})`}>
+            <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">
+              {payload.value}
+            </text>
+          </g>
+        );
+      };
+
     return (
         <div className="flex justify-center">
             <Head>Chart</Head>
             <LineChart width={730} height={250} data={data}
                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                <XAxis dataKey="time">
-                    <Label value="Time" offset={-7} position="insideBottom" />
+                <XAxis label="Time" dataKey="time" tick={<CustomizedAxisTick />} height={60}>
                 </XAxis>               
                 <YAxis >
                     <Label value="kWh/person" angle={-90}  />
                 </YAxis>
                 <Tooltip />
-                <Legend/>
+                <Legend />
                 <Line type="monotone" dataKey="top1" stroke="#232D4B" />
                 <Line type="monotone" dataKey="top2" stroke="#E57200" />
                 <Line type="monotone" dataKey="top3" stroke="#000000" />
