@@ -136,40 +136,41 @@ export default function Dashboard({
           onChange={onSlide}
           value={graphUpperLimit}
         ></input> */}
-        <LineChart
-          width={730}
-          height={250}
-          data={graphData}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-        >
-          <XAxis dataKey="time" tick={<CustomizedAxisTick />} height={60}>
-            <Label dy={25} value="Date" />
-          </XAxis>
-          <YAxis>
-            <Label dx={-30} value="kWh/person" angle={-90} />
-          </YAxis>
-          <Tooltip />
-          <Legend />
-          <Line
-            name={"3rd: " + toTitleCase(topDormNames[2])}
-            type="monotone"
-            dataKey="top3"
-            stroke="#ADD8E6"
-          />
-          <Line
-            name={"2nd: " + toTitleCase(topDormNames[1])}
-            type="monotone"
-            dataKey="top2"
-            stroke="#E57200"
-          />
-          <Line
-            name={"1st: " + toTitleCase(topDormNames[0])}
-            type="monotone"
-            dataKey="top1"
-            stroke="#232D4B"
-          />
-        </LineChart>
-
+        {totalEnergyUsage != [] && (
+          <LineChart
+            width={730}
+            height={250}
+            data={graphData}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          >
+            <XAxis dataKey="time" tick={<CustomizedAxisTick />} height={60}>
+              <Label dy={25} value="Date" />
+            </XAxis>
+            <YAxis>
+              <Label dx={-30} value="kWh/person" angle={-90} />
+            </YAxis>
+            <Tooltip />
+            <Legend />
+            <Line
+              name={"3rd: " + toTitleCase(topDormNames[2])}
+              type="monotone"
+              dataKey="top3"
+              stroke="#ADD8E6"
+            />
+            <Line
+              name={"2nd: " + toTitleCase(topDormNames[1])}
+              type="monotone"
+              dataKey="top2"
+              stroke="#E57200"
+            />
+            <Line
+              name={"1st: " + toTitleCase(topDormNames[0])}
+              type="monotone"
+              dataKey="top1"
+              stroke="#232D4B"
+            />
+          </LineChart>
+        )}
         {/* <LineChart width={730} height={250} data={graphData}
                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <XAxis dataKey="time" tick={<CustomizedAxisTick />} height={60}>
