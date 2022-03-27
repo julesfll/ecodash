@@ -1,9 +1,13 @@
 //later need to get actual capacities to calcualte
 // kwh/person
 
-export const capacities = {
-  
-}
+export const capacities: { [key: string]: number } = {
+  "GIBBONS HOUSE": 271,
+  "SHANNON HOUSE": 796,
+  "DUNGLISON HOUSE": 114,
+  "TUTTLE-DUNNINGTON HOUSE": 800,
+  "KELLOGG HOUSE": 201,
+};
 
 export const data = [
   {

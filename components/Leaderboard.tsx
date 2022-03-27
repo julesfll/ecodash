@@ -6,6 +6,7 @@ import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import { faMedal } from "@fortawesome/free-solid-svg-icons";
 import Building from "../interfaces/Building";
 import OverallGraph from "./OverallGraph";
+import { capacities } from '../data';
 
 function LeaderboardListItem({
   name,
@@ -109,8 +110,8 @@ export default function Leaderboard({ data }: { data: Building[] }) {
               key={i}
               name={d.name}
               place={i + 1}
-              summaryStat={d.value / 100}
-              prevSummary={d.value / 100}
+              summaryStat={d.value / capacities[d.name]}
+              prevSummary={d.value / capacities[d.name]}
               totalStat={d.value}
             />
           );
@@ -123,8 +124,8 @@ export default function Leaderboard({ data }: { data: Building[] }) {
               key={i}
               name={d.name}
               place={i + 4}
-              summaryStat={d.value / 100}
-              prevSummary={d.value / 100}
+              summaryStat={d.value / capacities[d.name]}
+              prevSummary={d.value / capacities[d.name]}
               totalStat={d.value}
             />
           );
