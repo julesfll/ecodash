@@ -1,7 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# EcoDash (HooHacks 2022)
 
-## Getting Started
+## Inspiration
+For many years, UVA has organized a first-year "Dorm Energy Race" where dormitories compete to use the lowest amount of energy in a one-month span. However, there was no way to view live updates of how dorms’ energy usage compared to each other, which makes student awareness and engagement much more challenging. Our solution to this problem was to develop a real-time leaderboard for UVA building energy competitions. UVA and other universities can use this platform in order to gamify the reduction of energy usage across dorms, school buildings, and more. More broadly, we wanted to show how gamification can be used to promote sustainable behavior and [lead to significant reductions in climate impact](https://www.sciencedirect.com/science/article/pii/S2352250X21000555).
 
+## What it does
+EcoDash provides a leaderboard that uses the [UVA Facilities API](https://devhub.virginia.edu/facilitiesAPI) to obtain information about energy, heating, and water usage in real-time. It features the current competition and the dorms involved as well as their current standings. A graph shows how each dorm's energy usage has changed over time.
+
+Using the slider at the top, you can simulate the progression of the competition. Note the gamification elements including a prominent leaderboard encouraging social comparison and fun details like confetti at the dash's conclusion. Clicking on the dorms shows actionable steps students can take to reduce their footprint.
+
+### Twilio API
+By clicking `Get Updates` and entering a verified phone number, students will receive text updates using the Twilio API. These include checkpoint announcements as well as custom messages designed to boost engagement. For example, when Dunglison overtakes Shannon with one week remaining, it notifies students of this exciting comeback.
+
+## How we built it
+It uses NextJS (React) with TypeScript for server-side rendering and serverless functions for the API. The user interface is custom-made with Tailwind CSS. Finally, Twilio provides text notifications.
+
+## Challenges we ran into
+Although we had previously inspected the UVA Facilities API, it was down for maintenance during this competition, so we generated custom data tailored to each real-world dorm. This allowed us to provide an authentic demonstrative experience.
+
+## Accomplishments that we're proud of
+We’re especially proud of our UI, which we designed using Figma mockups and created from scratch with Tailwind CSS. It makes our application seem more fun and approachable to students, allowing it to fit our overall goal well. We also love our gamification elements including the Twilio text notifications that make the app feel engaging and personalized.
+
+## What we learned
+We learned serverless development with NextJS and industry-grade development practices with TypeScript. We also learned how to incorporate dynamic data visualizations and custom UI components.
+
+## What's next for EcoDash
+This project could be implemented at UVA for the first-year dorm energy competition, and also at other universities. More than just energy, competitions can include water and heat through the API. Ultimately, EcoDash aims to encourage students to be more energy-efficient and teach everyone that sustainability can be both productive and fun.## Getting Started
+
+
+## Setup
 First, run the development server:
 
 ```bash
@@ -11,24 +37,3 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
