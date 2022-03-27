@@ -5,6 +5,7 @@ import { faBuilding } from "@fortawesome/free-solid-svg-icons";
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import { faMedal } from "@fortawesome/free-solid-svg-icons";
 import Building from "../interfaces/Building";
+import OverallGraph from "./OverallGraph";
 
 function LeaderboardListItem({
   name,
@@ -115,6 +116,16 @@ export default function Leaderboard({ data }: { data: Building[] }) {
           );
         })}
       </div>
+
+      <OverallGraph />
+
+      <LeaderboardListItem
+        name={"Gibbons"}
+        place={4}
+        summaryStat={11}
+        prevSummary={11}
+        totalStat={100}
+      />
     </div>
   );
 }
