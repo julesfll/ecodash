@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 
 
 export default function DetailView({dorm}: {dorm: any}) {
+    const [suggestionList, setSuggestionList] = useState<any[]>([])
     const router = useRouter()
     const {id} = router.query
     const dorms = [
@@ -101,7 +102,7 @@ export default function DetailView({dorm}: {dorm: any}) {
         })
 
 
-
+        getSuggestions()
     }, [router.isReady]);
     
       const updateGraphData = (
@@ -138,9 +139,12 @@ export default function DetailView({dorm}: {dorm: any}) {
                 const randInt = getRandomInt(8)
                 let included = false
                 completedSuggestions.forEach(num => {
-                    included = (num == randInt)
+                    console.log(num, "num", randInt, "randInt")
+                    included = included || (num == randInt)
+                    console.log(included, "included", randInt)
                 })
                 if (!included) {
+                    console.log(randInt, "added number")
                     newSuggestions.push(suggestions[randInt])
                     completedSuggestions.push(randInt)
                 } else {
@@ -149,8 +153,8 @@ export default function DetailView({dorm}: {dorm: any}) {
                     }
                 }
             }
-
-            return newSuggestions
+            console.log(newSuggestions, "newSuggestions")
+            setSuggestionList(newSuggestions)
         }
 
         function getRandomInt(max: number) {
@@ -164,7 +168,7 @@ export default function DetailView({dorm}: {dorm: any}) {
             </div>
             <DetailGraph graphData={graphData} dorm={dorm}/>
             <h1 className="text-2xl font-medium">Suggestions</h1>
-            {getSuggestions().map(suggestion => (
+            {suggestionList.map(suggestion => (
                 <Suggestion data={suggestion}/>
             ))}
         </div>
