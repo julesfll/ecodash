@@ -15,6 +15,7 @@ export default function SubscribeButton() {
       setConfirmationMessage("Something went wrong.");
     } else {
       setConfirmationMessage("You're all set! Check your DMs.");
+      localStorage.setItem('phone', phone);
     }
   };
 

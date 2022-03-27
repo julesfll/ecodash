@@ -36,10 +36,25 @@ export default function Dashboard() {
       ],
       [
         new Date(2022, 2, 11).toLocaleDateString(),
-        `The competition is halfway complete. Here's the current standings:\n1. ${leaderData[0].name}\n2. ${leaderData[1].name}\n3. ${leaderData[2].name}`,
+        `The competition is halfway complete. Here's the current standings:\n🥇 ${leaderData[0].name}\n🥈 ${leaderData[1].name}\n🥉 ${leaderData[2].name}`,
+      ],
+      [
+        new Date(2022, 2, 19).toLocaleDateString(),
+        "🚨ATTENTION🚨: Dunglison has overtaken Shannon! Shannon, time to take back the lead 😤😤😤",
+      ],
+      [
+        new Date(2022, 2, 2).toLocaleDateString(),
+        "Hey Kellogg, we noticed you've been leaving your lights 💡 on too long. Or at least that's what we think based on those lackluster numbers... 😒😒😒",
+      ],
+      [
+        new Date(2022, 2, 23).toLocaleDateString(),
+        `Congratulations to ${leaderData[0].name} for winning the competition! 🎉🎉🎉. Thank you all for participating in the dorm energy competition!`,
       ],
     ]);
-    if (keyDates.has(new Date(date).toLocaleDateString())) {
+    if (
+      keyDates.has(new Date(date).toLocaleDateString()) &&
+      localStorage.getItem("phone")
+    ) {
       sendMessage(keyDates.get(new Date(date).toLocaleDateString()));
     }
   };
@@ -47,7 +62,7 @@ export default function Dashboard() {
   const sendMessage = async (message: string | undefined) => {
     try {
       const body = {
-        phone: "7036226223",
+        phone: localStorage.getItem("phone"),
         message,
       };
       const res = await fetch("/api/send-message", {
