@@ -53,63 +53,67 @@ export default function SubscribeButton() {
       >
         Get Updates
       </button>
-      <Transition
-        show={isOpen}
-        enter="transition duration-100 ease-out"
-        enterFrom="transform scale-95 opacity-0"
-        enterTo="transform scale-100 opacity-100"
-        leave="transition duration-75 ease-out"
-        leaveFrom="transform scale-100 opacity-100"
-        leaveTo="transform scale-95 opacity-0"
-      >
-        <Dialog
-          className="fixed z-10 inset-0 overflow-y-auto"
-          onClose={handleClose}
-        >
-          <div className="flex items-center justify-center min-h-screen">
-            <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
 
-            <div className="relative p-2 px-5 items-center bg-gray-100 rounded max-w-sm mx-auto">
-              {!confirmationMessage ? (
-                <>
-                  <Dialog.Title>Get updates</Dialog.Title>
-                  <Dialog.Description>
-                    <p>
-                      Subscribe to receive updates on the competition and find
-                      out how your team is doing.
-                    </p>
-                  </Dialog.Description>
-                  <form onSubmit={handleSubmit} id="form1">
-                    Your phone number:
-                    <input
-                      type="tel"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                    />
-                  </form>
+      <Dialog
+        className="fixed z-10 inset-0 overflow-y-auto"
+        open={isOpen}
+        onClose={handleClose}
+      >
+        <div className="flex items-center justify-center min-h-screen">
+          <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+
+          <div className="relative p-2 px-5 items-center bg-gray-100 rounded max-w-sm mx-auto">
+            {!confirmationMessage ? (
+              <>
+                <span className="block text-xl font-medium py-1">
+                  Get updates
+                </span>
+                <Dialog.Description>
+                  <p className="py-1">
+                    Subscribe to receive updates on the competition and find out
+                    how your team is doing.
+                  </p>
+                </Dialog.Description>
+                <form
+                  className="py-2 flex items-center"
+                  onSubmit={handleSubmit}
+                  id="form1"
+                >
+                  <span className="font-medium text-lg pr-3">Phone:</span>
+                  <input
+                    className="grow shadow font-medium focus:outline-blue-200 rounded bg-gray-200 p-2 "
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </form>
+                <div className="flex justify-center gap-3 py-2">
                   <button
-                    className="text-white p-1.5 rounded-md bg-[#E57200]"
+                    className="text-white p-2 rounded-md bg-[#E57200]"
                     type="submit"
                     form="form1"
                   >
                     Subscribe
                   </button>
-                  <button className="p-1.5 rounded-md" onClick={handleClose}>
+                  <button
+                    className="p-2 w-20 rounded-md bg-gray-300"
+                    onClick={handleClose}
+                  >
                     Cancel
                   </button>
-                </>
-              ) : (
-                <>
-                  <Dialog.Title>{confirmationMessage}</Dialog.Title>
-                  <button className="p-1.5 rounded-md" onClick={handleClose}>
-                    OK
-                  </button>
-                </>
-              )}
-            </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <Dialog.Title>{confirmationMessage}</Dialog.Title>
+                <button className="p-1.5 rounded-md" onClick={handleClose}>
+                  OK
+                </button>
+              </>
+            )}
           </div>
-        </Dialog>
-      </Transition>
+        </div>
+      </Dialog>
     </>
   );
 }

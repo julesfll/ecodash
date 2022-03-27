@@ -34,7 +34,7 @@ function LeaderboardListItem({
       <span className="block text-xl">{summaryStat.toFixed(2)} kWh/person</span>
       <span className="block text-xl">
         <span className="font-medium">Total: </span>
-        {totalStat.toFixed(2)} kWh
+        {totalStat.toFixed()} kWh
       </span>
       {/* {summaryStat - prevSummary > 0 ? (
         <span>increasing :(</span>
@@ -107,9 +107,11 @@ function FeaturedCard({
 
 export default function Leaderboard({
   data,
+  allData,
   graphUpperLimit,
 }: {
   data: Building[];
+  allData: Building[];
   graphUpperLimit: number;
 }) {
   return (
@@ -128,6 +130,8 @@ export default function Leaderboard({
           );
         })}
       </div>
+      <OverallGraph graphUpperLimit={graphUpperLimit} />
+
       <div>
         {data.slice(3).map((d, i) => {
           return (
@@ -142,8 +146,6 @@ export default function Leaderboard({
           );
         })}
       </div>
-
-      <OverallGraph graphUpperLimit={graphUpperLimit} />
     </div>
   );
 }
