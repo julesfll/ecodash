@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DetailGraph from "./DetailGraph"
-import { capacities, data } from "../data";
+import Suggestion from "./Suggestion"
+import { capacities, data, suggestions } from "../data";
 import { useRouter } from "next/router";
 
 
@@ -127,12 +128,45 @@ export default function DetailView({dorm}: {dorm: any}) {
             });
           }
 
+          console.log(suggestions)
+
+        const getSuggestions = () => {
+            let newSuggestions = []
+            let max = 4
+            let completedSuggestions = []
+            for (let i=0; i<max; i++) {
+                const randInt = getRandomInt(8)
+                let included = false
+                completedSuggestions.forEach(num => {
+                    included = (num == randInt)
+                })
+                if (!included) {
+                    newSuggestions.push(suggestions[randInt])
+                    completedSuggestions.push(randInt)
+                } else {
+                    if (max != 8) {
+                        max += 1
+                    }
+                }
+            }
+
+            return newSuggestions
+        }
+
+        function getRandomInt(max: number) {
+            return Math.floor(Math.random() * max);
+          }
+
     return (
         <div>
             <div className="flex flex-col items-center p-3 bg-gray-100 shadow-md rounded">
                 <h1 className="text-xl"><b>{"#"+dormPlace}</b>{" "+ toTitleCase(dorm)}</h1>
             </div>
             <DetailGraph graphData={graphData} dorm={dorm}/>
+            <h1 className="text-2xl font-medium">Suggestions</h1>
+            {getSuggestions().map(suggestion => (
+                <Suggestion data={suggestion}/>
+            ))}
         </div>
     )
 }
