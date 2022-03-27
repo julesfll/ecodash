@@ -24,7 +24,7 @@ function LeaderboardListItem({
     <div className="flex p-2 px-5 items-center justify-start gap-10 bg-gray-100 rounded">
       <h1 className="text-2xl font-bold">{place}</h1>
       <FontAwesomeIcon className="text-3xl" icon={faBuilding} />
-      <h2 className="text-xl grow">{name}</h2>
+      <h2 className="text-xl grow capitalize">{name.toLowerCase()}</h2>
       <span className="block text-xl">{summaryStat.toFixed(2)} kWh/person</span>
       <span className="block text-xl">
         <span className="font-medium">Total: </span>
@@ -86,14 +86,14 @@ function FeaturedCard({
         <span className="font-bold text-2xl text-[#E57200] ">{place}</span>
         <WinnerIcon place={place} />
       </div>
-      <span className="text-center text-xl grow">
+      <span className="text-center text-xl grow capitalize">
         <FontAwesomeIcon className="text-2xl px-2" icon={faBuilding} />
-        {name}
+        {name.toLowerCase()}
       </span>
       <span className="text-md">{summaryStat.toFixed(2)} kWh/person</span>
       <span className="text-md">
         <span className="font-medium">Total: </span>
-        {totalStat}
+        {totalStat.toFixed()} kWh
       </span>
     </div>
   );
