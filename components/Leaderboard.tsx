@@ -29,7 +29,7 @@ function LeaderboardListItem({
       <span className="block text-xl">{summaryStat.toFixed(2)} kWh/person</span>
       <span className="block text-xl">
         <span className="font-medium">Total: </span>
-        {totalStat.toFixed(2)} kWh
+        {totalStat.toFixed()} kWh
       </span>
       {/* {summaryStat - prevSummary > 0 ? (
         <span>increasing :(</span>
