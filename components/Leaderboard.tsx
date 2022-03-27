@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBuilding } from "@fortawesome/free-solid-svg-icons";
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import { faMedal } from "@fortawesome/free-solid-svg-icons";
+import Building from "../interfaces/Building";
 
 function LeaderboardListItem({
   name,
@@ -23,12 +24,12 @@ function LeaderboardListItem({
       <h1 className="text-2xl font-bold">{place}</h1>
       <FontAwesomeIcon className="text-3xl" icon={faBuilding} />
       <h2 className="text-xl grow">{name}</h2>
-      <span className="block text-xl">{summaryStat} kWh/person</span>
+      <span className="block text-xl">{summaryStat.toFixed(2)} kWh/person</span>
       <span className="block text-xl">
         <span className="font-medium">Total: </span>
-        {totalStat} kWh
+        {totalStat.toFixed(2)} kWh
       </span>
-      {summaryStat - prevSummary > 0 ? (
+      {/* {summaryStat - prevSummary > 0 ? (
         <span>increasing :(</span>
       ) : (
         <>
@@ -39,7 +40,7 @@ function LeaderboardListItem({
           )}
         </>
         // add fontawesome icons
-      )}
+      )} */}
     </div>
   );
 }
@@ -67,16 +68,17 @@ function FeaturedCard({
   prevSummary: number;
 }) {
   return (
-    <div className="flex flex-col bg-[#232D4B] text-white gap-2 rounded-md items-center p-2 w-1/3 h-1/3">
+    <div className="flex flex-col bg-[#232D4B] text-white gap-2 rounded-md items-center p-2 w-1/3">
       <div className="flex  justify-between px-2 items-center w-full">
         <span className="font-bold text-2xl text-[#E57200] ">{place}</span>
         <WinnerIcon place={place} />
       </div>
-      <span className="text-xl">
-        <FontAwesomeIcon className="text-2xl px-2" icon={faBuilding} /> {name}
+      <span className="text-center text-xl grow">
+        <FontAwesomeIcon className="text-2xl px-2" icon={faBuilding} />
+        {name}
       </span>
-      <span className="text-xl">{summaryStat} kWh/person</span>
-      <span className="text-xl">
+      <span className="text-md">{summaryStat.toFixed(2)} kWh/person</span>
+      <span className="text-md">
         <span className="font-medium">Total: </span>
         {totalStat}
       </span>
@@ -84,39 +86,35 @@ function FeaturedCard({
   );
 }
 
-export default function Leaderboard() {
+export default function Leaderboard({ data }: { data: Building[] }) {
   return (
     <div>
       <div className="flex gap-2 mb-4">
-        <FeaturedCard
-          name={"Shannon"}
-          place={1}
-          summaryStat={10}
-          prevSummary={11}
-          totalStat={100}
-        />
-        <FeaturedCard
-          name={"Shannon"}
-          place={2}
-          summaryStat={10}
-          prevSummary={11}
-          totalStat={100}
-        />
-        <FeaturedCard
-          name={"Shannon"}
-          place={3}
-          summaryStat={10}
-          prevSummary={11}
-          totalStat={100}
-        />
+        {data.slice(0, 3).map((d, i) => {
+          return (
+            <FeaturedCard
+              name={d.name}
+              place={i + 1}
+              summaryStat={d.value / 100}
+              prevSummary={d.value / 100}
+              totalStat={d.value}
+            />
+          );
+        })}
       </div>
-      <LeaderboardListItem
-        name={"Gibbons"}
-        place={4}
-        summaryStat={11}
-        prevSummary={11}
-        totalStat={100}
-      />
+      <div>
+        {data.slice(3).map((d, i) => {
+          return (
+            <LeaderboardListItem
+              name={d.name}
+              place={i + 4}
+              summaryStat={d.value / 100}
+              prevSummary={d.value / 100}
+              totalStat={d.value}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
