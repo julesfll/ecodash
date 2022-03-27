@@ -167,7 +167,7 @@ export default function Dashboard({
             <XAxis dataKey="time" tick={<CustomizedAxisTick />} height={60}>
               <Label dy={25} value="Date" />
             </XAxis>
-            <YAxis>
+            <YAxis type="number" domain={["auto", "auto"]}>
               <Label dx={-30} value="kWh/person" angle={-90} />
             </YAxis>
             <Tooltip />

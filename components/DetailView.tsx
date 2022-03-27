@@ -130,8 +130,7 @@ export default function DetailView({dorm}: {dorm: any}) {
     return (
         <div>
             <div className="flex flex-col items-center p-3 bg-gray-100 shadow-md rounded">
-                <h1 className="text-xl">{toTitleCase(dorm)}</h1>
-                <h1 className="text-xl">{dormPlace}</h1>
+                <h1 className="text-xl"><b>{"#"+dormPlace}</b>{" "+ toTitleCase(dorm)}</h1>
             </div>
             <DetailGraph graphData={graphData} dorm={dorm}/>
         </div>

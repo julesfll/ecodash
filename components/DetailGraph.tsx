@@ -27,13 +27,13 @@ export default function OverallGraph({graphData, dorm}: any) {
       }
 
     return (
-        <div>
+        <div className="flex justify-center">
             <LineChart width={500} height={300} data={graphData}
                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <XAxis dataKey="time" tick={<CustomizedAxisTick />} height={60}>
                     <Label dy={25} value="Date" />
                 </XAxis>               
-                <YAxis>
+                <YAxis type="number" domain={["auto", "auto"]}>
                     <Label dx={-30} value="kWh/person" angle={-90}  />
                 </YAxis>
                 <Tooltip/>
