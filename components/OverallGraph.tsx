@@ -8,7 +8,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import { data } from "../data";
+import { capacities, data } from "../data";
 import DetailGraph from "./DetailGraph"
 
 export default function Dashboard({
@@ -32,13 +32,33 @@ export default function Dashboard({
   //   const [bound, setBound] = useState(10);
 
   useEffect(() => {
-    let newDataDorms: any[] = [];
+    let newDataDormsBefore: any[] = [];
 
     // This separate data by dorms (so dataDorms is an array of arrays of dorm energy objects)
     dorms.forEach((dorm) => {
-      newDataDorms.push(data.filter((entry) => entry.name == dorm));
+      newDataDormsBefore.push(data.filter((entry) => entry.name == dorm));
     });
+    setDataDorms(newDataDormsBefore);
+
+    let newDataDorms: any[] = [];
+    newDataDormsBefore.forEach(newDataDorm => {
+        let entryData: any[] = [];
+        newDataDorm.forEach((entry: any) => {
+            let newValue = entry.value / capacities[entry.name]
+            // console.log(capacities[entry.name])
+            entryData.push({
+                id: entry.id,
+                name: entry.name,
+                type: entry.type,
+                value: newValue,
+                unit: "kWh/person",
+                time: entry.time,
+            })
+        })
+        newDataDorms.push(entryData)
+    })
     setDataDorms(newDataDorms);
+    // console.log(newDataDorms, "newDataDorms")
 
     // This calculates the total energy usage for each dorm
     let counter = 0;
