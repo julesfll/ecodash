@@ -48,9 +48,21 @@ function LeaderboardListItem({
 
 function WinnerIcon({ place }: { place: number }) {
   const icons = [
-    <FontAwesomeIcon className="text-3xl text-yellow-500" icon={faTrophy} />,
-    <FontAwesomeIcon className="text-3xl text-gray-400" icon={faMedal} />,
-    <FontAwesomeIcon className="text-3xl text-yellow-700" icon={faMedal} />,
+    <FontAwesomeIcon
+      key={0}
+      className="text-3xl text-yellow-500"
+      icon={faTrophy}
+    />,
+    <FontAwesomeIcon
+      key={1}
+      className="text-3xl text-gray-400"
+      icon={faMedal}
+    />,
+    <FontAwesomeIcon
+      key={2}
+      className="text-3xl text-yellow-700"
+      icon={faMedal}
+    />,
   ];
   return <>{icons[place - 1]}</>;
 }
@@ -94,6 +106,7 @@ export default function Leaderboard({ data }: { data: Building[] }) {
         {data.slice(0, 3).map((d, i) => {
           return (
             <FeaturedCard
+              key={i}
               name={d.name}
               place={i + 1}
               summaryStat={d.value / 100}
@@ -107,6 +120,7 @@ export default function Leaderboard({ data }: { data: Building[] }) {
         {data.slice(3).map((d, i) => {
           return (
             <LeaderboardListItem
+              key={i}
               name={d.name}
               place={i + 4}
               summaryStat={d.value / 100}
