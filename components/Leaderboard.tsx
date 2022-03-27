@@ -118,14 +118,6 @@ export default function Leaderboard({ data }: { data: Building[] }) {
       </div>
 
       <OverallGraph />
-
-      <LeaderboardListItem
-        name={"Gibbons"}
-        place={4}
-        summaryStat={11}
-        prevSummary={11}
-        totalStat={100}
-      />
     </div>
   );
 }
