@@ -9,7 +9,7 @@ export default function SubscribeButton() {
 
   const handleSubmit = async () => {
     setConfirmationMessage("Talking to Twilio...");
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 500));
     const res = await sendMessage();
     if (res.err) {
       setConfirmationMessage("Something went wrong.");

@@ -6,6 +6,7 @@ import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import { faMedal } from "@fortawesome/free-solid-svg-icons";
 import Building from "../interfaces/Building";
 import OverallGraph from "./OverallGraph";
+import { capacities } from '../data';
 
 function LeaderboardListItem({
   name,
@@ -24,7 +25,7 @@ function LeaderboardListItem({
     <div className="flex p-2 px-5 items-center justify-start gap-10 bg-gray-100 rounded">
       <h1 className="text-2xl font-bold">{place}</h1>
       <FontAwesomeIcon className="text-3xl" icon={faBuilding} />
-      <h2 className="text-xl grow">{name}</h2>
+      <h2 className="text-xl grow capitalize">{name.toLowerCase()}</h2>
       <span className="block text-xl">{summaryStat.toFixed(2)} kWh/person</span>
       <span className="block text-xl">
         <span className="font-medium">Total: </span>
@@ -86,20 +87,26 @@ function FeaturedCard({
         <span className="font-bold text-2xl text-[#E57200] ">{place}</span>
         <WinnerIcon place={place} />
       </div>
-      <span className="text-center text-xl grow">
+      <span className="text-center text-xl grow capitalize">
         <FontAwesomeIcon className="text-2xl px-2" icon={faBuilding} />
-        {name}
+        {name.toLowerCase()}
       </span>
       <span className="text-md">{summaryStat.toFixed(2)} kWh/person</span>
       <span className="text-md">
         <span className="font-medium">Total: </span>
-        {totalStat}
+        {totalStat.toFixed()} kWh
       </span>
     </div>
   );
 }
 
-export default function Leaderboard({ data }: { data: Building[] }) {
+export default function Leaderboard({
+  data,
+  graphUpperLimit,
+}: {
+  data: Building[];
+  graphUpperLimit: number;
+}) {
   return (
     <div>
       <div className="flex gap-2 mb-4">
@@ -109,8 +116,8 @@ export default function Leaderboard({ data }: { data: Building[] }) {
               key={i}
               name={d.name}
               place={i + 1}
-              summaryStat={d.value / 100}
-              prevSummary={d.value / 100}
+              summaryStat={d.value / capacities[d.name]}
+              prevSummary={d.value / capacities[d.name]}
               totalStat={d.value}
             />
           );
@@ -123,15 +130,15 @@ export default function Leaderboard({ data }: { data: Building[] }) {
               key={i}
               name={d.name}
               place={i + 4}
-              summaryStat={d.value / 100}
-              prevSummary={d.value / 100}
+              summaryStat={d.value / capacities[d.name]}
+              prevSummary={d.value / capacities[d.name]}
               totalStat={d.value}
             />
           );
         })}
       </div>
 
-      <OverallGraph />
+      <OverallGraph graphUpperLimit={graphUpperLimit} />
     </div>
   );
 }

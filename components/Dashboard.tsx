@@ -10,9 +10,15 @@ export default function Dashboard() {
   const [date, setDate] = useState("2022-03-10T00:00:00.000Z");
   const [allDates, setAllDates] = useState<string[]>([]);
   const [leaderData, setLeaderData] = useState([]);
+  const [graphUpperLimit, setGraphUpperLimit] = useState(5);
+
+  const onSlide = (e: any) => {
+    setGraphUpperLimit(e.target.value);
+    // console.log(e.target.value);
+  };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/buildings`)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/buildings`)
       .then((response) => response.json())
       .then((data) => {
         const allDates: string[] = data.data.map((d: Building) => d.time);
@@ -30,27 +36,37 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/buildings?date=${date}`)
+    if (allDates.length > 0) {
+      setDate(allDates[graphUpperLimit]);
+    }
+  }, [graphUpperLimit]);
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/buildings?date=${date}`)
       .then((response) => response.json())
       .then((data) => {
         setLeaderData(data.data);
       });
   }, [date]);
 
-  const parseDate = (date: string) => {
-    const dateObj = new Date(date);
-    const dateStr =
-      dateObj.getMonth() + "/" + dateObj.getDay() + "/" + dateObj.getFullYear();
-    return dateStr;
-  };
   return (
     <div className="flex flex-col gap-5">
+      <h1 className="text-2xl">History Slider</h1>
+      <input
+        type="range"
+        min="0"
+        max={allDates.length - 1}
+        onChange={onSlide}
+        value={graphUpperLimit}
+      ></input>
+
       <h1 className="text-3xl">Overview</h1>
-      <Countdown title={"Date"} time={parseDate(date)} />
+      <Countdown title={"Date"} time={new Date(date).toLocaleDateString()} />
       <SummaryStats />
       {/* summary stats up to a day */}
+
       <h1 className="text-3xl">Leaderboard</h1>
-      <Leaderboard data={leaderData} />
+      <Leaderboard data={leaderData} graphUpperLimit={graphUpperLimit} />
     </div>
   );
 }
