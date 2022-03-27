@@ -45,7 +45,7 @@ export default function SummaryStats({
     <div className="flex flex-col items-center p-2 bg-gray-100 shadow-md rounded">
       <div className="flex flex-col justify-center gap-2">
         <span>
-          <span className="text-2xl font-medium px-2">Today's Total:</span>{" "}
+          <span className="text-2xl font-medium px-2">Today&apos;s Total:</span>{" "}
           {/* 
 //from https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
         */}

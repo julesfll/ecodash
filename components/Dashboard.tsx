@@ -13,14 +13,14 @@ export default function Dashboard() {
   const [date, setDate] = useState("2022-03-10T00:00:00.000Z");
   const [allDates, setAllDates] = useState<string[]>([]);
   const [allData, setAllData] = useState<Building[]>([]);
-  const [leaderData, setLeaderData] = useState([]);
+  const [leaderData, setLeaderData] = useState<Building[]>([]);
   const [graphUpperLimit, setGraphUpperLimit] = useState(5);
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
   const onSlide = (e: any) => {
     setGraphUpperLimit(e.target.value);
     // https://eight-bites.blog/en/2021/06/wait-user-typing/
-    clearTimeout(timer);
+    clearTimeout(timer as NodeJS.Timeout);
     const newTimer = setTimeout(() => {
       checkDMs();
     }, 2000);
