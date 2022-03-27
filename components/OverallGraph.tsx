@@ -1,9 +1,9 @@
 import { FunctionComponent, useState, useEffect } from "react";
 import { Label, LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import {data} from "../data"
+import DetailGraph from "./DetailGraph"
 
-
-export default function Dashboard() {
+export default function OverallGraph() {
     const dorms = ["GIBBONS HOUSE", "SHANNON HOUSE", "DUNGLISON HOUSE", "TUTTLE-DUNNINGTON HOUSE", "KELLOGG HOUSE"]
     const [dataDorms, setDataDorms] = useState<any[]>([])
     // below contains total energy usage of each dorm sorted
@@ -96,7 +96,7 @@ export default function Dashboard() {
                     <Label dy={25} value="Date" />
                 </XAxis>               
                 <YAxis>
-                    <Label dx={-30} value="kWh/person" angle={-90}  />
+                    <Label dx={-30} value="kWh" angle={-90}  />
                 </YAxis>
                 <Tooltip/>
                 <Legend />
@@ -105,17 +105,7 @@ export default function Dashboard() {
                 <Line name={"1st: "+ topDormNames[0]} type="monotone" dataKey="top1" stroke="#232D4B" />
             </LineChart>
 
-            {/* <LineChart width={730} height={250} data={graphData}
-                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                <XAxis dataKey="time" tick={<CustomizedAxisTick />} height={60}>
-                    <Label dy={25} value="Date" />
-                </XAxis>               
-                <YAxis>
-                    <Label dx={-30} value="kWh/person" angle={-90}  />
-                </YAxis>
-                <Tooltip/>
-                <Line name={topDormNames[0]} type="monotone" dataKey="top1" stroke="#232D4B" />
-            </LineChart> */}
+            <DetailGraph graphData={graphData} topDormNames={topDormNames} />
             </div>
         </div>
     );
