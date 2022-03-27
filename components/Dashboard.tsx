@@ -12,6 +12,7 @@ import { faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 export default function Dashboard() {
   const [date, setDate] = useState("2022-03-10T00:00:00.000Z");
   const [allDates, setAllDates] = useState<string[]>([]);
+  const [allData, setAllData] = useState<Building[]>([]);
   const [leaderData, setLeaderData] = useState([]);
   const [graphUpperLimit, setGraphUpperLimit] = useState(5);
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
@@ -78,6 +79,7 @@ export default function Dashboard() {
           return a_date - b_date;
         });
         setAllDates(uniqueDates);
+        setAllData(data.data);
       });
   }, []);
 
@@ -96,8 +98,8 @@ export default function Dashboard() {
   }, [date]);
 
   return (
-    <div className="flex flex-col gap-5">
-      <h1 className="text-2xl">History Slider</h1>
+    <div className="flex flex-col gap-2.5">
+      <h1 className="text-2xl font-medium">History Slider</h1>
       <input
         className="accent-[#E57200]"
         type="range"
@@ -107,7 +109,7 @@ export default function Dashboard() {
         value={graphUpperLimit}
       ></input>
 
-      <h1 className="text-3xl">Overview</h1>
+      <h1 className="text-2xl font-medium">Overview</h1>
       {date == allDates[allDates.length - 1] ? (
         <>
           <div className="flex flex-col items-center p-3 bg-gray-100 shadow-md rounded">
@@ -121,11 +123,17 @@ export default function Dashboard() {
       ) : (
         <Countdown title={"Date"} time={new Date(date).toLocaleDateString()} />
       )}
-      <SummaryStats />
+      <h1 className="text-2xl font-medium">Summary</h1>
+
+      <SummaryStats data={leaderData} allData={allData} curDate={date} />
       {/* summary stats up to a day */}
 
-      <h1 className="text-3xl">Leaderboard</h1>
-      <Leaderboard data={leaderData} graphUpperLimit={graphUpperLimit} />
+      <h1 className="text-2xl font-medium">Leaderboard</h1>
+      <Leaderboard
+        data={leaderData}
+        allData={allData}
+        graphUpperLimit={graphUpperLimit}
+      />
     </div>
   );
 }

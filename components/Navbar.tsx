@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import Subscribe from './Subscribe';
+import Subscribe from "./Subscribe";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt } from "@fortawesome/free-solid-svg-icons";
 
@@ -18,11 +18,11 @@ export default function Navbar() {
         <Link href="/about">
           <h1 className="text-xl cursor-pointer pl-2">About</h1>
         </Link>
-        <Link href="/previous">
+        {/* <Link href="/previous">
           <h1 className="text-xl cursor-pointer pl-2 flex-grow">
             Previous Years
           </h1>
-        </Link>
+        </Link> */}
         <Subscribe />
       </div>
     </nav>
