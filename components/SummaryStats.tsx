@@ -49,10 +49,7 @@ export default function SummaryStats({
           {/* 
 //from https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
         */}
-          <span className="text-2xl">
-            {computeTotal()}
-            kWh
-          </span>
+          <span className="text-2xl">{computeTotal()} kWh</span>
         </span>
         <span>
           <span className="text-2xl font-medium px-2">Per Person:</span>

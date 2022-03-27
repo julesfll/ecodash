@@ -64,7 +64,11 @@ export default function Dashboard() {
       ></input>
 
       <h1 className="text-2xl font-medium">Overview</h1>
-      <Countdown title={"Date"} time={new Date(date).toLocaleDateString()} />
+      <Countdown
+        title={"Date"}
+        remaining={allDates.length - 1 - graphUpperLimit}
+        time={new Date(date).toLocaleDateString()}
+      />
       <h1 className="text-2xl font-medium">Summary</h1>
       <SummaryStats data={leaderData} allData={allData} curDate={date} />
       {/* summary stats up to a day */}
