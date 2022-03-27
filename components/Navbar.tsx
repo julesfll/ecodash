@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Subscribe from './Subscribe';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt } from "@fortawesome/free-solid-svg-icons";
 
@@ -22,7 +23,7 @@ export default function Navbar() {
             Previous Years
           </h1>
         </Link>
-        <button className="p-1.5 rounded-md bg-[#E57200]">Subscribe</button>
+        <Subscribe />
       </div>
     </nav>
   );
