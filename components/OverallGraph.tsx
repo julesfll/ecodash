@@ -192,7 +192,6 @@ export default function Dashboard({
             />
           </LineChart>
         )}
-        <DetailGraph graphData={graphData} topDormNames={topDormNames} />
       </div>
     </div>
   );

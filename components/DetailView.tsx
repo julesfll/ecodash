@@ -91,7 +91,7 @@ export default function DetailView({dorm}: {dorm: any}) {
         newTotalEnergyUsage.sort((dorm1, dorm2) => dorm1.total - dorm2.total);
         setTotalEnergyUsage(newTotalEnergyUsage);
 
-        let counter2 = 0;
+        let counter2 = 1;
         newTotalEnergyUsage.forEach(entry => {
             if (entry.dorm == dorm) {
                 setDormPlace(counter2)
