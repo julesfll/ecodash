@@ -10,9 +10,8 @@ export default function Dashboard() {
   const [date, setDate] = useState("2022-03-10T00:00:00.000Z");
   const [allDates, setAllDates] = useState<string[]>([]);
   const [leaderData, setLeaderData] = useState([]);
-
   useEffect(() => {
-    fetch(`http://localhost:3000/api/buildings`)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/buildings`)
       .then((response) => response.json())
       .then((data) => {
         const allDates: string[] = data.data.map((d: Building) => d.time);
@@ -30,7 +29,7 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/buildings?date=${date}`)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/buildings?date=${date}`)
       .then((response) => response.json())
       .then((data) => {
         setLeaderData(data.data);
