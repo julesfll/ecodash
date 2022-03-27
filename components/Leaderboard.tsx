@@ -6,7 +6,8 @@ import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import { faMedal } from "@fortawesome/free-solid-svg-icons";
 import Building from "../interfaces/Building";
 import OverallGraph from "./OverallGraph";
-import { capacities } from "../data";
+import { capacities } from '../data';
+import Link from "next/link"
 
 function LeaderboardListItem({
   name,
@@ -25,7 +26,11 @@ function LeaderboardListItem({
     <div className="flex p-2 px-5 items-center justify-start gap-10 bg-gray-100 rounded">
       <h1 className="text-2xl font-bold">{place}</h1>
       <FontAwesomeIcon className="text-3xl" icon={faBuilding} />
-      <h2 className="text-xl grow capitalize">{name.toLowerCase()}</h2>
+      <h2 className="text-xl grow capitalize">
+        <Link href="/dorms/[id]" as={`/dorms/${name}`} >
+          {name.toLowerCase()}
+        </Link>
+      </h2>
       <span className="block text-xl">{summaryStat.toFixed(2)} kWh/person</span>
       <span className="block text-xl">
         <span className="font-medium">Total: </span>
@@ -89,7 +94,7 @@ function FeaturedCard({
       </div>
       <span className="text-center text-xl grow capitalize">
         <FontAwesomeIcon className="text-2xl px-2" icon={faBuilding} />
-        {name.toLowerCase()}
+        <Link href="/dorms/[id]" as={`/dorms/${name}`} >{name.toLowerCase()}</Link>
       </span>
       <span className="text-md">{summaryStat.toFixed(2)} kWh/person</span>
       <span className="text-md">

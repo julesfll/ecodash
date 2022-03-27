@@ -8,7 +8,8 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import { data } from "../data";
+import { capacities, data } from "../data";
+import DetailGraph from "./DetailGraph"
 import { toTitleCase } from "../utils";
 
 export default function Dashboard({
@@ -32,13 +33,33 @@ export default function Dashboard({
   //   const [bound, setBound] = useState(10);
 
   useEffect(() => {
-    let newDataDorms: any[] = [];
+    let newDataDormsBefore: any[] = [];
 
     // This separate data by dorms (so dataDorms is an array of arrays of dorm energy objects)
     dorms.forEach((dorm) => {
-      newDataDorms.push(data.filter((entry) => entry.name == dorm));
+      newDataDormsBefore.push(data.filter((entry) => entry.name == dorm));
     });
+    setDataDorms(newDataDormsBefore);
+
+    let newDataDorms: any[] = [];
+    newDataDormsBefore.forEach(newDataDorm => {
+        let entryData: any[] = [];
+        newDataDorm.forEach((entry: any) => {
+            let newValue = entry.value / capacities[entry.name]
+            // console.log(capacities[entry.name])
+            entryData.push({
+                id: entry.id,
+                name: entry.name,
+                type: entry.type,
+                value: newValue,
+                unit: "kWh/person",
+                time: entry.time,
+            })
+        })
+        newDataDorms.push(entryData)
+    })
     setDataDorms(newDataDorms);
+    // console.log(newDataDorms, "newDataDorms")
 
     // This calculates the total energy usage for each dorm
     let counter = 0;
@@ -139,7 +160,7 @@ export default function Dashboard({
             <XAxis dataKey="time" tick={<CustomizedAxisTick />} height={60}>
               <Label dy={25} value="Date" />
             </XAxis>
-            <YAxis>
+            <YAxis type="number" domain={["auto", "auto"]}>
               <Label dx={-30} value="kWh/person" angle={-90} />
             </YAxis>
             <Tooltip />
@@ -164,17 +185,6 @@ export default function Dashboard({
             />
           </LineChart>
         )}
-        {/* <LineChart width={730} height={250} data={graphData}
-                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                <XAxis dataKey="time" tick={<CustomizedAxisTick />} height={60}>
-                    <Label dy={25} value="Date" />
-                </XAxis>               
-                <YAxis>
-                    <Label dx={-30} value="kWh/person" angle={-90}  />
-                </YAxis>
-                <Tooltip/>
-                <Line name={topDormNames[0]} type="monotone" dataKey="top1" stroke="#232D4B" />
-            </LineChart> */}
       </div>
     </div>
   );
