@@ -9,6 +9,7 @@ import {
   Legend,
 } from "recharts";
 import { data } from "../data";
+import { toTitleCase } from "../utils";
 
 export default function Dashboard({
   graphUpperLimit,
@@ -117,14 +118,6 @@ export default function Dashboard({
       </g>
     );
   };
-
-  // https://stackoverflow.com/a/196991
-  function toTitleCase(str: string) {
-    if (!str) return "";
-    return str.replace(/([^\W_]+[^\s-]*) */g, function (txt: string) {
-      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
-  }
 
   return (
     <div className="flex justify-center">

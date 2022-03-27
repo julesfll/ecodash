@@ -18,6 +18,7 @@ export default function SubscribeButton() {
     }
   };
 
+  // TODO: refactor
   const sendMessage = async () => {
     try {
       const body = {
