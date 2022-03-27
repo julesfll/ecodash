@@ -81,7 +81,7 @@ export default function Dashboard() {
         );
       };
 
-    const onSlide = (e) => {
+    const onSlide = (e: any) => {
         setGraphUpperLimit(e.target.value)
         updateGraphData(topDormNums, dataDorms, e.target.value)
     }
@@ -90,7 +90,6 @@ export default function Dashboard() {
         <div className="flex justify-center">
             <div className="flex flex-col">
             <input type="range" min="5" max="30" onChange={onSlide} value={graphUpperLimit} ></input>
-            {totalEnergyUsage !== [] &&
             <LineChart width={730} height={250} data={graphData}
                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <XAxis dataKey="time" tick={<CustomizedAxisTick />} height={60}>
@@ -105,7 +104,18 @@ export default function Dashboard() {
                 <Line name={"2nd: "+ topDormNames[1]} type="monotone" dataKey="top2" stroke="#E57200" />
                 <Line name={"1st: "+ topDormNames[0]} type="monotone" dataKey="top1" stroke="#232D4B" />
             </LineChart>
-            }
+
+            <LineChart width={730} height={250} data={graphData}
+                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                <XAxis dataKey="time" tick={<CustomizedAxisTick />} height={60}>
+                    <Label dy={25} value="Date" />
+                </XAxis>               
+                <YAxis>
+                    <Label dx={-30} value="kWh/person" angle={-90}  />
+                </YAxis>
+                <Tooltip/>
+                <Line name={topDormNames[0]} type="monotone" dataKey="top1" stroke="#232D4B" />
+            </LineChart>
             </div>
         </div>
     );
