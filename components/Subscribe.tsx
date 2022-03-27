@@ -74,10 +74,14 @@ export default function SubscribeButton() {
                     how your team is doing.
                   </p>
                 </Dialog.Description>
-                <form className="py-2 flex" onSubmit={handleSubmit} id="form1">
-                  <span className="font-medium pr-3">Phone:</span>
+                <form
+                  className="py-2 flex items-center"
+                  onSubmit={handleSubmit}
+                  id="form1"
+                >
+                  <span className="font-medium text-lg pr-3">Phone:</span>
                   <input
-                    className="grow shadow rounded bg-gray-200 px-1"
+                    className="grow shadow font-medium focus:outline-blue-200 rounded bg-gray-200 p-2 "
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
