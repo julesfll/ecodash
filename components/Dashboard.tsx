@@ -3,6 +3,9 @@ import Countdown from "./Countdown";
 import SummaryStats from "./SummaryStats";
 import Leaderboard from "./Leaderboard";
 import Building from "../interfaces/Building";
+import { toTitleCase } from "../utils";
+import Confetti from "react-confetti";
+import { faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 
 // later add animations to make changs clearer?
 
@@ -10,12 +13,70 @@ export default function Dashboard() {
   const [date, setDate] = useState("2022-03-10T00:00:00.000Z");
   const [allDates, setAllDates] = useState<string[]>([]);
   const [allData, setAllData] = useState<Building[]>([]);
-  const [leaderData, setLeaderData] = useState([]);
+  const [leaderData, setLeaderData] = useState<Building[]>([]);
   const [graphUpperLimit, setGraphUpperLimit] = useState(5);
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
   const onSlide = (e: any) => {
     setGraphUpperLimit(e.target.value);
-    // console.log(e.target.value);
+    // https://eight-bites.blog/en/2021/06/wait-user-typing/
+    clearTimeout(timer as NodeJS.Timeout);
+    const newTimer = setTimeout(() => {
+      checkDMs();
+    }, 2000);
+    setTimer(newTimer);
+  };
+
+  const checkDMs = () => {
+    // TODO: more precise comparison
+    const keyDates = new Map([
+      [
+        new Date(2022, 1, 25).toLocaleDateString(),
+        "The competition has begun! Let the most energy-efficent dorm win!",
+      ],
+      [
+        new Date(2022, 2, 11).toLocaleDateString(),
+        `The competition is halfway complete. Here's the current standings:\n🥇 ${leaderData[0].name}\n🥈 ${leaderData[1].name}\n🥉 ${leaderData[2].name}`,
+      ],
+      [
+        new Date(2022, 2, 19).toLocaleDateString(),
+        "🚨ATTENTION🚨: Dunglison has overtaken Shannon! Shannon, time to take back the lead 😤😤😤",
+      ],
+      [
+        new Date(2022, 2, 2).toLocaleDateString(),
+        "Hey Kellogg, we noticed you've been leaving your lights 💡 on too long. Or at least that's what we think based on those lackluster numbers... 😒😒😒",
+      ],
+      [
+        new Date(2022, 2, 23).toLocaleDateString(),
+        `Congratulations to ${leaderData[0].name} for winning the competition! 🎉🎉🎉. Thank you all for participating in the dorm energy competition!`,
+      ],
+    ]);
+    if (
+      keyDates.has(new Date(date).toLocaleDateString()) &&
+      localStorage.getItem("phone")
+    ) {
+      sendMessage(keyDates.get(new Date(date).toLocaleDateString()));
+    }
+  };
+
+  const sendMessage = async (message: string | undefined) => {
+    try {
+      const body = {
+        phone: localStorage.getItem("phone"),
+        message,
+      };
+      const res = await fetch("/api/send-message", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      return await res.json();
+    } catch (err) {
+      console.error(err);
+      return err;
+    }
   };
 
   useEffect(() => {
@@ -64,8 +125,26 @@ export default function Dashboard() {
       ></input>
 
       <h1 className="text-2xl font-medium">Overview</h1>
-      <Countdown title={"Date"} time={new Date(date).toLocaleDateString()} />
+
+      {date == allDates[allDates.length - 1] ? (
+        <>
+          <div className="flex flex-col items-center p-3 bg-gray-100 shadow-md rounded">
+            <h1 className="text-xl">Competition complete!</h1>
+            <h2 className="text-4xl">
+              Congratulations to {toTitleCase(leaderData[0].name)}
+            </h2>
+          </div>
+          <Confetti width={window.innerWidth} height={window.innerHeight} />
+        </>
+      ) : (
+        <Countdown
+          title={"Date"}
+          remaining={allDates.length - 1 - graphUpperLimit}
+          time={new Date(date).toLocaleDateString()}
+        />
+      )}
       <h1 className="text-2xl font-medium">Summary</h1>
+
       <SummaryStats data={leaderData} allData={allData} curDate={date} />
       {/* summary stats up to a day */}
 

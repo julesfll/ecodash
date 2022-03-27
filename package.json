@@ -16,6 +16,7 @@
     "@types/react-fontawesome": "^1.6.5",
     "next": "^12.1.1",
     "react": "^17.0.2",
+    "react-confetti": "^6.0.1",
     "react-dom": "17.0.2",
     "recharts": "^2.1.9",
     "twilio": "^3.76.0"
