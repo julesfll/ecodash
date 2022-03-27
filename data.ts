@@ -13,51 +13,61 @@ export const capacities: { [key: string]: number } = {
 // https://www.directenergy.com/learning-center/25-energy-efficiency-tips
 export const suggestions = [
   {
+    id: 0,
     icon: "🔌",
     head: "Unplug and Unwind!",
     desc: "Don't leave your mobile phone plugged in overnight- it only takes a couple of hours to charge"
   },
   {
+    id: 1,
     icon: "💡",
     head: "Lights Off",
     desc: "Remember to switch the lights off when leaving a room!"
   },
   {
+    id: 2,
     icon: "☀️",
     head: "Enjoy the Sunshine!",
     desc: "During daylight hours, switch off artificial lights and use windows to brighten your dorm"
   },
   {
+    id: 3,
     icon: "✋",
     head: "Open A Window",
     desc: "Opening windows creates a cross-wise breeze, allowing you to naturally cool your dorm without switching on air conditioners. This is an ideal tactic in spring when temperatures are mild"
   },
   {
+    id: 4,
     icon: "⚡",
     head: "Power Down!",
     desc: "Don't leave your electronics on all day long- only turn on your computer and/or monitor when you need them"
   },
   {
+    id: 5,
     icon: "❄️",
     head: "Cool Wash",
     desc: "Wash your clothes in cold water if possible- this can help reduce unnecessary energy usage"
   },
   {
+    id: 6,
     icon: "🌙",
     head: "Night Washer",
     desc: "Using dishwashers and clothes washers/dryers at night will keep the house cooler, reduce strain on the power grid during the peak usage hours of 4 PM and 6 PM and reduce the chance of an emergency!"
   },
   {
+    id: 7,
     icon: "🍴",
     head: "Responsible Cooking",
     desc: "Don't leave bathroom or kitchen ventilation fans running longer than necessary. They replace inside air with outside"
   },
   {
+    id: 8,
     icon: "🌡️",
     head: "Controlled Temperature",
     desc: "If possible, set your thermostat to 78F in the summer and 68F in the winter - every degree of extra heating or cooling will increase energy usage 6% to 8%. Setting your thermostat to a lower temperature than normal will not cool your dorm faster"
   },
   {
+    id: 9,
     icon: "👩‍🍳",
     head: "Quick Chef",
     desc: "Turn off the oven a few minutes before cooking time runs out. Your food will continue to cook without using the extra electricity"

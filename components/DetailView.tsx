@@ -136,7 +136,7 @@ export default function DetailView({dorm}: {dorm: any}) {
             let max = 4
             let completedSuggestions = []
             for (let i=0; i<max; i++) {
-                const randInt = getRandomInt(8)
+                const randInt = getRandomInt(10)
                 let included = false
                 completedSuggestions.forEach(num => {
                     console.log(num, "num", randInt, "randInt")
@@ -169,7 +169,7 @@ export default function DetailView({dorm}: {dorm: any}) {
             <DetailGraph graphData={graphData} dorm={dorm}/>
             <h1 className="text-2xl font-medium">Suggestions</h1>
             {suggestionList.map(suggestion => (
-                <Suggestion data={suggestion}/>
+                <Suggestion key={suggestion.id} data={suggestion}/>
             ))}
         </div>
     )
