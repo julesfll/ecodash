@@ -105,7 +105,7 @@ export default function Dashboard() {
                 <Line name={"1st: "+ topDormNames[0]} type="monotone" dataKey="top1" stroke="#232D4B" />
             </LineChart>
 
-            <LineChart width={730} height={250} data={graphData}
+            {/* <LineChart width={730} height={250} data={graphData}
                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <XAxis dataKey="time" tick={<CustomizedAxisTick />} height={60}>
                     <Label dy={25} value="Date" />
@@ -115,7 +115,7 @@ export default function Dashboard() {
                 </YAxis>
                 <Tooltip/>
                 <Line name={topDormNames[0]} type="monotone" dataKey="top1" stroke="#232D4B" />
-            </LineChart>
+            </LineChart> */}
             </div>
         </div>
     );
