@@ -9,7 +9,9 @@ export default function Dashboard() {
     // below contains total energy usage of each dorm sorted
     const [totalEnergyUsage, setTotalEnergyUsage] = useState<any[]>([])
     const [topDormNums, setTopDormNums] = useState<any[]>([])
+    const [topDormNames, setTopDormNames] = useState<any[]>([])
     const [graphData, setGraphData] = useState<any[]>()
+    const [graphUpperLimit, setGraphUpperLimit] = useState(10)
 
     useEffect(() => {
         let newDataDorms: any[] = []
@@ -33,33 +35,39 @@ export default function Dashboard() {
 
         // This finds the index of the least energy dorms in the dorm names array
         let newTopDormNums: any[] = []
+        let newTopDormNames: any[] = []
         for(let i=0; i<3; i++) {
             let counter2 = 0
             dorms.forEach(dorm => {
                 if (dorm == newTotalEnergyUsage[i].dorm) {
                     newTopDormNums.push(counter2)
+                    newTopDormNames.push(dorm)
                 }
                 counter2 += 1
             })
         }
         setTopDormNums(newTopDormNums)
+        setTopDormNames(newTopDormNames)
 
+        updateGraphData(newTopDormNums, newDataDorms, graphUpperLimit)
+    }, []);
+
+    const updateGraphData = (newTopDormNums: any, newDataDorms: any, graphUpperLimit: number) => {
         // This reorganizes dorm data for the graph
         let newGraphData = []
-        for(let i=0; i<30; i++) {
+        for(let i=0; i<graphUpperLimit; i++) {
             let topHourlys: any[] = []
-            let time = 0
-            newTopDormNums.forEach(topDormNum => {
+            let time = ""
+            newTopDormNums.forEach((topDormNum: any) => {
                 topHourlys.push(newDataDorms[topDormNum][i].value)
-                time = newDataDorms[topDormNum][i].time
+                const curTime = new Date(newDataDorms[topDormNum][i].time)
+                // +1 as getMonth range is [0,11]
+                time = (curTime.getMonth() + 1) + "-" + curTime.getDate()
             })
             newGraphData.push({time: time, top1: topHourlys[0], top2: topHourlys[1], top3: topHourlys[2]})
         }
         setGraphData(newGraphData)
-        console.log(graphData)
-    }, []);
-
-
+    }
 
     const CustomizedAxisTick: FunctionComponent<any> = (props: any) => {
         const { x, y, payload } = props;
@@ -73,21 +81,32 @@ export default function Dashboard() {
         );
       };
 
+    const onSlide = (e) => {
+        setGraphUpperLimit(e.target.value)
+        updateGraphData(topDormNums, dataDorms, e.target.value)
+    }
+
     return (
         <div className="flex justify-center">
+            <div className="flex flex-col">
+            <input type="range" min="5" max="30" onChange={onSlide} value={graphUpperLimit} ></input>
+            {totalEnergyUsage !== [] &&
             <LineChart width={730} height={250} data={graphData}
                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                <XAxis label="Time" dataKey="time" tick={<CustomizedAxisTick />} height={60}>
+                <XAxis dataKey="time" tick={<CustomizedAxisTick />} height={60}>
+                    <Label dy={25} value="Date" />
                 </XAxis>               
-                <YAxis >
-                    <Label value="kWh/person" angle={-90}  />
+                <YAxis>
+                    <Label dx={-30} value="kWh/person" angle={-90}  />
                 </YAxis>
-                <Tooltip />
+                <Tooltip/>
                 <Legend />
-                <Line type="monotone" dataKey="top1" stroke="#232D4B" />
-                <Line type="monotone" dataKey="top2" stroke="#E57200" />
-                <Line type="monotone" dataKey="top3" stroke="#000000" />
+                <Line name={"3rd: "+ topDormNames[2]} type="monotone" dataKey="top3" stroke="#ADD8E6" />
+                <Line name={"2nd: "+ topDormNames[1]} type="monotone" dataKey="top2" stroke="#E57200" />
+                <Line name={"1st: "+ topDormNames[0]} type="monotone" dataKey="top1" stroke="#232D4B" />
             </LineChart>
+            }
+            </div>
         </div>
     );
 }
