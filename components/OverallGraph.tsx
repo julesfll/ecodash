@@ -10,7 +10,11 @@ import {
 } from "recharts";
 import { data } from "../data";
 
-export default function Dashboard() {
+export default function Dashboard({
+  graphUpperLimit,
+}: {
+  graphUpperLimit: number;
+}) {
   const dorms = [
     "GIBBONS HOUSE",
     "SHANNON HOUSE",
@@ -24,7 +28,7 @@ export default function Dashboard() {
   const [topDormNums, setTopDormNums] = useState<any[]>([]);
   const [topDormNames, setTopDormNames] = useState<any[]>([]);
   const [graphData, setGraphData] = useState<any[]>();
-  const [graphUpperLimit, setGraphUpperLimit] = useState(10);
+  //   const [bound, setBound] = useState(10);
 
   useEffect(() => {
     let newDataDorms: any[] = [];
@@ -66,9 +70,8 @@ export default function Dashboard() {
     }
     setTopDormNums(newTopDormNums);
     setTopDormNames(newTopDormNames);
-
     updateGraphData(newTopDormNums, newDataDorms, graphUpperLimit);
-  }, []);
+  }, [graphUpperLimit]);
 
   const updateGraphData = (
     newTopDormNums: any,
@@ -115,11 +118,6 @@ export default function Dashboard() {
     );
   };
 
-  const onSlide = (e: any) => {
-    setGraphUpperLimit(e.target.value);
-    updateGraphData(topDormNums, dataDorms, e.target.value);
-  };
-
   // https://stackoverflow.com/a/196991
   function toTitleCase(str: string) {
     if (!str) return "";
@@ -131,13 +129,13 @@ export default function Dashboard() {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col">
-        <input
+        {/* <input
           type="range"
           min="5"
           max="30"
           onChange={onSlide}
           value={graphUpperLimit}
-        ></input>
+        ></input> */}
         <LineChart
           width={730}
           height={250}

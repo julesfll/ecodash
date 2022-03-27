@@ -100,7 +100,13 @@ function FeaturedCard({
   );
 }
 
-export default function Leaderboard({ data }: { data: Building[] }) {
+export default function Leaderboard({
+  data,
+  graphUpperLimit,
+}: {
+  data: Building[];
+  graphUpperLimit: number;
+}) {
   return (
     <div>
       <div className="flex gap-2 mb-4">
@@ -132,7 +138,7 @@ export default function Leaderboard({ data }: { data: Building[] }) {
         })}
       </div>
 
-      <OverallGraph />
+      <OverallGraph graphUpperLimit={graphUpperLimit} />
     </div>
   );
 }
